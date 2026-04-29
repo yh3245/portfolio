@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The CheckOut — 用户研究案例 | 何昱颖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf7f4;
+    --surface: #ffffff;
+    --text: #1e1612;
+    --text-secondary: #6b5c52;
+    --text-hint: #b8a89e;
+    --accent: #b83224;
+    --accent-light: #fbecea;
+    --accent2: #c47a2a;
+    --accent2-light: #fdf4e7;
+    --border: #e8ddd8;
+    --border-hover: #c9b8b0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .nav-back {
+    font-size: 13px;
+    color: var(--text-hint);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  .nav-right {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-hint);
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 3rem 4rem;
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+
+  .tag-green { background: var(--accent-light); color: var(--accent); }
+  .tag-gray { border: 1px solid var(--border); color: var(--text-hint); }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .hero-metric {
+    padding: 1.5rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .hero-metric:last-child { border-right: none; }
+
+  .hm-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--text);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .hm-label {
+    font-size: 11px;
+    color: var(--text-hint);
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
+
+  /* SECTIONS */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 3rem;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  h2 em { font-style: italic; color: var(--accent); }
+
+  p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* CONTEXT CARDS */
+  .context-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .context-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .cc-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-hint);
+    margin-bottom: 0.8rem;
+    display: block;
+    font-weight: 400;
+  }
+
+  .cc-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .context-card p { margin: 0; font-size: 13px; }
+
+  /* PROCESS STEPS */
+  .steps {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--border-hover);
+    line-height: 1;
+  }
+
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .step p { margin: 0; font-size: 13px; }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 2px solid var(--accent);
+    padding: 1.2rem 1.5rem;
+    background: var(--accent-light);
+    margin: 2rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .callout-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+
+  .callout p { margin: 0; font-size: 13px; color: var(--text-secondary); }
+
+  .callout-warn {
+    border-left-color: var(--accent2);
+    background: var(--accent2-light);
+  }
+  .callout-warn .callout-label { color: var(--accent2); }
+
+  /* DATA SECTION */
+  .data-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* SATISFACTION BARS */
+  .sat-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .sat-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 60px;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .sat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: right;
+  }
+
+  .sat-bar-bg {
+    height: 8px;
+    background: var(--bg);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .sat-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--accent);
+    transition: width 1s ease;
+  }
+
+  .sat-pct {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* GENRE BUBBLES */
+  .genre-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .genre-pill {
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .genre-pill.top {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .genre-pill.second {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-color: var(--accent-light);
+  }
+
+  .genre-pct {
+    font-size: 10px;
+    opacity: 0.75;
+  }
+
+  /* FINDINGS */
+  .findings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .finding-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .finding-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .finding-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .finding-card p { margin: 0; font-size: 13px; }
+
+  /* RETENTION SECTION */
+  .retention-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .ret-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .ret-card.winner {
+    background: var(--accent-light);
+    border-color: var(--accent);
+  }
+
+  .ret-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .ret-card.winner .ret-num { color: var(--accent); }
+
+  .ret-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .ret-card p { font-size: 12px; margin: 0; }
+
+  .winner-badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    margin-bottom: 0.8rem;
+  }
+
+  /* PAIN POINTS */
+  .pain-list {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .pain-item {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem 1.2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .pain-item.critical {
+    border-color: #f5c6c6;
+    background: #fff8f8;
+  }
+
+  .pain-rank {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--text-hint);
+    min-width: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .pain-item.critical .pain-rank { color: #c0392b; }
+
+  .pain-content {}
+  .pain-title {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .pain-desc { font-size: 12px; color: var(--text-hint); margin: 0; }
+
+  /* QUOTE */
+  .quote-block {
+    border-left: 3px solid var(--border);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--surface);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .quote-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 0.3rem;
+  }
+
+  .quote-attr {
+    font-size: 11px;
+    color: var(--text-hint);
+  }
+
+  /* TAKEAWAY */
+  .takeaway-section {
+    background: var(--accent);
+    padding: 5rem 3rem;
+    text-align: center;
+  }
+
+  .takeaway-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .takeaway-section .section-label {
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.2rem;
+  }
+
+  .takeaway-section h2 {
+    color: #fff;
+    margin-bottom: 1.5rem;
+  }
+
+  .takeaway-section h2 em { color: rgba(255,255,255,0.65); }
+
+  .takeaway-section p {
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    max-width: 580px;
+    margin: 0 auto 1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg);
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    max-width: 100%;
+  }
+
+  .footer-back a {
+    font-size: 13px;
+    color: var(--text-hint);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-back a:hover { color: var(--accent); }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--text-hint);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tags  { animation: fadeUp 0.5s 0.0s ease both; }
+  .hero h1    { animation: fadeUp 0.5s 0.1s ease both; }
+  .hero-sub   { animation: fadeUp 0.5s 0.2s ease both; }
+  .hero-metrics { animation: fadeUp 0.5s 0.3s ease both; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .section { padding: 3rem 1.5rem; }
+    .hero-metrics { grid-template-columns: repeat(2, 1fr); }
+    .context-grid { grid-template-columns: 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .retention-compare { grid-template-columns: 1fr; }
+    .sat-row { grid-template-columns: 100px 1fr 50px; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+    .takeaway-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="index.html">← 返回主页</a>
+  <span class="nav-right">THE CHECKOUT — 案例研究</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="tag tag-green">用户研究</span>
+      <span class="tag tag-gray">产品策略</span>
+      <span class="tag tag-gray">会员体系</span>
+      <span class="tag tag-gray">数据分析</span>
+    </div>
+    <h1>听懂观众，<em>再做产品。</em></h1>
+    <p class="hero-sub">The CheckOut 是芝加哥一家新兴演出场地。我们用用户体验地图、深度访谈和 280+ 份问卷，找出品牌吸新难、复购低的根源，并设计了一套以会员为核心的用户留存体系。</p>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <span class="hm-num">280+</span>
+        <span class="hm-label">有效问卷回收</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">15</span>
+        <span class="hm-label">用户交互触点梳理</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">94%</span>
+        <span class="hm-label">受访者愿意再次到访</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">30%+</span>
+        <span class="hm-label">策略落地后复购率提升</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BACKGROUND -->
+<section class="section">
+  <p class="section-label">背景</p>
+  <h2>一个新场地的<em>两个难题。</em></h2>
+  <p>The CheckOut 是一家位于芝加哥的新型演出酒吧，提供古典、爵士、当代音乐等多元类型的现场演出。作为一个刚起步的品牌，他们面临两个核心挑战：如何带来新观众，以及如何让来过的观众再次回来。</p>
+  <p>我们的任务是：用真实的用户数据，找出问题所在，并给出可落地的产品策略建议。</p>
+
+  <div class="context-grid">
+    <div class="context-card">
+      <span class="cc-label">挑战 01</span>
+      <div class="cc-title">吸新难</div>
+      <p>新场地知名度低，缺乏有效的获客路径和清晰的品牌触达渠道。如何让目标用户第一次走进来？</p>
+    </div>
+    <div class="context-card">
+      <span class="cc-label">挑战 02</span>
+      <div class="cc-title">复购低</div>
+      <p>即使体验不错的观众，也没有足够的理由再次回来。如何把偶尔到访的观众，转化为忠实用户？</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROCESS -->
+<section class="section">
+  <p class="section-label">研究方法</p>
+  <h2>从访谈到数据，<em>一步步找答案。</em></h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">用户体验地图</div>
+        <p>通过 30+ 次线下深度访谈，梳理用户从「第一次听说这个场地」到「演出结束回家」的完整旅程，识别出品牌触达、购票决策、现场体验、后续传播 4 大环节，共 15 个交互触点。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">定量问卷调研</div>
+        <p>因线下样本量不足，设计含 18 个核心问题的问卷，投放至 500+ 购票用户邮箱。回收 280+ 份有效数据，覆盖整体满意度、场地体验、回访意愿、偏好类型和留存驱动因素等维度。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">数据分析与洞察提炼</div>
+        <p>对问卷数据进行系统分析，锁定用户体验中的核心痛点、留存驱动因素和目标用户特征，输出 3+ 份调研报告，支撑后续产品策略决策。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div>
+        <div class="step-title">会员体系设计</div>
+        <p>基于数据洞察，设计三档会员体系，以专属演出权益、灵活购票选项等差异化福利，将一次性观众转化为品牌忠实用户，并为捐赠转化创造路径。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DATA: SATISFACTION -->
+<section class="data-section">
+  <div class="section">
+    <p class="section-label">数据洞察 01</p>
+    <h2>整体体验<em>高度正向，</em>但有一个例外。</h2>
+    <p>问卷结果显示，用户对演出质量、场地氛围和音效的满意度极高。唯一的明显短板是购票体验——强制下载 App 成为最频繁被提及的负面反馈。</p>
+
+    <div class="sat-grid">
+      <div class="sat-row">
+        <div class="sat-label">演出质量</div>
+        <div class="sat-bar-bg"><div class="sat-bar-fill" style="width:87.5%"></div></div>
+        <div class="sat-pct">87.5%</div>
+      </div>
+      <div class="sat-row">
+        <div class="sat-label">音效</div>
+        <div class="sat-bar-bg"><div class="sat-bar-fill" style="width:71.9%"></div></div>
+        <div class="sat-pct">71.9%</div>
+      </div>
+      <div class="sat-row">
+        <div class="sat-label">场地氛围</div>
+        <div class="sat-bar-bg"><div class="sat-bar-fill" style="width:65.6%"></div></div>
+        <div class="sat-pct">65.6%</div>
+      </div>
+      <div class="sat-row">
+        <div class="sat-label">购票体验</div>
+        <div class="sat-bar-bg"><div class="sat-bar-fill" style="width:50%; background:#e09a5a;"></div></div>
+        <div class="sat-pct" style="color:#c0784a;">50%</div>
+      </div>
+    </div>
+    <p style="font-size:11px; color:var(--text-hint); margin-top:0.8rem;">* 柱状图显示「非常满意」比例；购票体验满意度明显低于其他维度</p>
+
+    <div class="callout callout-warn" style="margin-top:2rem;">
+      <p class="callout-label">核心痛点</p>
+      <p>强制下载购票 App 是用户反馈中被提及次数最多的负面体验，多条评论直接点名。这是一个低成本、高影响的可优化点——修复它不需要改变任何演出本身，却能显著提升转化。</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"I loved the venue and the performers. I just didn't love having to download an app to purchase the tickets."</p>
+      <p class="quote-attr">— 用户问卷反馈，Jazz and Comedy 场次</p>
+    </div>
+    <div class="quote-block">
+      <p class="quote-text">"Was annoyed to download another tickets app, but understand the need."</p>
+      <p class="quote-attr">— 用户问卷反馈，Mycelium New Music 场次</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DATA: GENRE -->
+<section class="section">
+  <p class="section-label">数据洞察 02</p>
+  <h2>观众是<em>内容驱动的，</em>而且胃口很广。</h2>
+  <p>室内乐是最受欢迎的类型，爵士紧随其后。但最值得注意的是：43.75% 的受访者表示「什么都喜欢」——这意味着多元化节目单本身就是一种留存策略。</p>
+
+  <div class="genre-grid">
+    <div class="genre-pill top">室内乐 <span class="genre-pct">53.1%</span></div>
+    <div class="genre-pill second">爵士 <span class="genre-pct">34.4%</span></div>
+    <div class="genre-pill second">当代新音乐 <span class="genre-pct">28.1%</span></div>
+    <div class="genre-pill">歌剧与声乐 <span class="genre-pct">15.6%</span></div>
+    <div class="genre-pill">卡巴莱 <span class="genre-pct">25%</span></div>
+    <div class="genre-pill">影像配乐 <span class="genre-pct">18.75%</span></div>
+    <div class="genre-pill top">什么都喜欢 <span class="genre-pct">43.75%</span></div>
+  </div>
+
+  <div class="callout" style="margin-top:2rem;">
+    <p class="callout-label">洞察</p>
+    <p>将近一半观众愿意尝试各种类型，与「因为好奇/想尝试新东西」是第二大到访原因高度吻合（40.6%）。这说明 The CheckOut 的多元节目单本身就是一个差异化竞争优势。</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DATA: RETENTION -->
+<section class="data-section">
+  <div class="section">
+    <p class="section-label">数据洞察 03</p>
+    <h2>留住用户靠<em>内容，不靠折扣。</em></h2>
+    <p>在「什么最能让你更愿意再次到访」的问题中，会员制/季票以 59.4% 的选择率大幅领先带朋友折扣（18.75%）。这个发现直接影响了我们的产品策略方向。</p>
+
+    <div class="retention-compare">
+      <div class="ret-card winner">
+        <span class="winner-badge">推荐策略</span>
+        <span class="ret-num">59.4%</span>
+        <span class="ret-label">会员制 / 季票</span>
+        <p>用户更希望通过会员获得稳定、灵活的观演权益，而非一次性的价格让利。</p>
+      </div>
+      <div class="ret-card">
+        <span class="ret-num">18.75%</span>
+        <span class="ret-label">带朋友折扣</span>
+        <p>折扣的吸引力远低于预期，说明现有观众并非价格敏感型用户。</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:2rem;">
+      <p class="callout-label">关键结论</p>
+      <p>受访者中 94% 表示很可能或可能在 3 个月内再次到访（非常可能 53.1%，可能 40.6%）。留存意愿本身很强——问题不是「要不要来」，而是「有没有一个机制让他们持续回来」。这正是会员体系要解决的问题。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FINDINGS -->
+<section class="section">
+  <p class="section-label">核心发现</p>
+  <h2>四个可以行动的<em>洞察。</em></h2>
+
+  <div class="findings-grid">
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">购票体验是最大摩擦点</div>
+      <p>强制下载 App 是出现频率最高的负面反馈。提供更简洁的网页购票路径，可以在不改变任何演出内容的前提下，显著提升转化率。</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">内容深度驱动复购</div>
+      <p>用户回来是因为喜欢节目本身，而不是因为打折。这意味着节目策划的质量和多样性，比任何营销活动都更重要。</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">艺人连接感有提升空间</div>
+      <p>用户对整体体验的评分高于对「与艺人的情感连接感」的评分。增加演后交流、艺人介绍等互动设计，可以强化品牌独特性。</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">场地体验细节待打磨</div>
+      <p>灯光偏硬、座椅不够舒适、非酒精饮品选择少——这些反复出现的细节反馈，指向了可以优化的具体场景。</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">目标用户活跃在 Bluesky</div>
+      <p>调研发现我们的核心用户群体——偏成熟、有文化消费习惯的观众——在 Bluesky 上的活跃度明显高于预期。而此前品牌在该平台完全没有存在感。基于这一发现，我们在 Bluesky 上建立了官方账号，将其纳入常规内容运营渠道，补上了这个曝光缺口。</p>
+    </div>
+  </div>
+</section>
+<section class="section" style="max-width:1100px;">
+  <p class="section-label">用户体验地图</p>
+  <h2>从「路过」到<em>「常客」。</em></h2>
+  <p style="margin-bottom:2.5rem;">基于 30+ 次线下访谈与 280+ 份问卷，梳理出观众的完整旅程——在哪里出现摩擦，在哪里产生连接，以及我们在每个环节做了什么。</p>
+
+  <!-- PERSONAS -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2.5rem;">
+
+    <!-- Persona 1 -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--accent);flex-shrink:0;">S</div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:0.95rem;color:var(--text);line-height:1.2;">Susan，55岁</div>
+          <div style="font-size:10px;color:var(--text-hint);letter-spacing:0.08em;">社区支持者</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.5rem;letter-spacing:0.06em;">特征</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">Lakeview 老居民，通过邮件通知或熟人介绍了解演出。喜欢室内乐和声乐，但也愿意尝试各种类型。把来 The CheckOut 看作支持本地艺术社区的方式。</div>
+      <div style="border-top:1px solid var(--border);padding-top:0.8rem;">
+        <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.4rem;letter-spacing:0.06em;">核心驱动</div>
+        <div style="font-size:12px;color:var(--text-secondary);">支持场地与艺术家 · 熟悉节目单 · 社群归属感</div>
+        <div style="font-size:11px;color:var(--accent);font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">主要痛点</div>
+        <div style="font-size:12px;color:var(--text-secondary);">强制下载 App 购票对她这个年龄段尤其不友好；座椅舒适度</div>
+        <div style="font-size:11px;color:var(--accent);font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">留存钥匙</div>
+        <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:var(--accent-light);color:var(--accent);">会员 / 季票</div>
+      </div>
+    </div>
+
+    <!-- Persona 2 -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--accent2-light);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--accent2);flex-shrink:0;">M</div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:0.95rem;color:var(--text);line-height:1.2;">Marcus，32岁</div>
+          <div style="font-size:10px;color:var(--text-hint);letter-spacing:0.08em;">好奇探索者</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--accent2);font-weight:500;margin-bottom:0.5rem;letter-spacing:0.06em;">特征</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">被朋友拉来或路过场地后好奇走进来——「前 7-Eleven 变成音乐厅」这个概念本身就足以吸引他。口味很广，喜欢新鲜感，不是某一类型的忠实粉丝。</div>
+      <div style="border-top:1px solid var(--border);padding-top:0.8rem;">
+        <div style="font-size:11px;color:var(--accent2);font-weight:500;margin-bottom:0.4rem;letter-spacing:0.06em;">核心驱动</div>
+        <div style="font-size:12px;color:var(--text-secondary);">好奇 / 尝试新事物 · 朋友推荐 · 亲民票价</div>
+        <div style="font-size:11px;color:var(--accent2);font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">主要痛点</div>
+        <div style="font-size:12px;color:var(--text-secondary);">对场地和演出不了解，到场前信息缺失；缺少「再来一次」的理由</div>
+        <div style="font-size:11px;color:var(--accent2);font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">留存钥匙</div>
+        <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:var(--accent2-light);color:var(--accent2);">演前互动 · 艺人介绍</div>
+      </div>
+    </div>
+
+    <!-- Persona 3 -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:#eef0f8;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.2rem;color:#4a5aaa;flex-shrink:0;">R</div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:0.95rem;color:var(--text);line-height:1.2;">Rachel，44岁</div>
+          <div style="font-size:10px;color:var(--text-hint);letter-spacing:0.08em;">垂直爱好者</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#4a5aaa;font-weight:500;margin-bottom:0.5rem;letter-spacing:0.06em;">特征</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">有明确的音乐偏好——室内乐或爵士的资深听众。专门冲着某位艺术家或某个节目单来，对演出质量有较高标准，会主动查找和关注 The CheckOut 的排期。</div>
+      <div style="border-top:1px solid var(--border);padding-top:0.8rem;">
+        <div style="font-size:11px;color:#4a5aaa;font-weight:500;margin-bottom:0.4rem;letter-spacing:0.06em;">核心驱动</div>
+        <div style="font-size:12px;color:var(--text-secondary);">特定艺术家 · 节目单质量 · 亲近感（距离艺人只有20英尺）</div>
+        <div style="font-size:11px;color:#4a5aaa;font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">主要痛点</div>
+        <div style="font-size:12px;color:var(--text-secondary);">音响平衡问题（电子元素过响）；场地偶发噪音干扰演出</div>
+        <div style="font-size:11px;color:#4a5aaa;font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">留存钥匙</div>
+        <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#eef0f8;color:#4a5aaa;">偏好类型演出 · 演后交流</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JOURNEY TABLE -->
+  <div style="overflow-x:auto;">
+  <table style="width:100%;border-collapse:collapse;min-width:700px;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--text-hint);font-weight:400;width:14%;">阶段</th>
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--text-hint);font-weight:400;width:20%;">用户行为</th>
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--text-hint);font-weight:400;width:20%;">情绪 / 痛点</th>
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--text-hint);font-weight:400;width:18%;">触点</th>
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--accent);font-weight:400;width:28%;">我们的应对 / Next Step</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- ROW 1 -->
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">发现</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Awareness</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">通过朋友推荐、路过场地或 Google 搜索第一次听说 The CheckOut</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#fdf4e7;color:#c47a2a;margin-bottom:0.4rem;">好奇</div>
+          <div style="font-size:12px;color:var(--text-secondary);">「前 7-Eleven 改成音乐厅？」— 有趣但不确定</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">口耳相传、场地外观、社媒</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ 强化独特品牌叙事</div>
+          <div style="font-size:12px;color:var(--text-secondary);">用「前 7-Eleven」的反差感作为记忆锚点，让第一次听说的人就能记住</div>
+        </td>
+      </tr>
+      <!-- ROW 2 -->
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">决策</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Consideration</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">查看节目表、了解票价，决定是否购票</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#fbecea;color:#b83224;margin-bottom:0.4rem;">⚠ 最大痛点</div>
+          <div style="font-size:12px;color:var(--text-secondary);">强制下载 App 购票——多条问卷直接点名，是整个旅程中满意度最低的环节</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">官网、DICE App、邮件通知</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ 简化购票路径</div>
+          <div style="font-size:12px;color:var(--text-secondary);">推动提供网页直接购票选项，减少因 App 门槛流失的潜在观众</div>
+        </td>
+      </tr>
+      <!-- ROW 3 -->
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">到场前</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Pre-show</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">出发前查地址、停车、着装；抵达后找座位、点饮料</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#fdf4e7;color:#c47a2a;margin-bottom:0.4rem;">轻度焦虑</div>
+          <div style="font-size:12px;color:var(--text-secondary);">停车信息不清晰；第一次来的人不知道流程</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">确认邮件、场地入口、吧台</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ 演出前互动环节（新增）</div>
+          <div style="font-size:12px;color:var(--text-secondary);">工作人员主动迎接、介绍场地故事和当晚艺术家，把「陌生感」变成「被欢迎感」</div>
+        </td>
+      </tr>
+      <!-- ROW 4 -->
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">演出中</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">During</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">近距离欣赏演出，与同场观众共处</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#e8f5ee;color:#2a7a4a;margin-bottom:0.4rem;">高度满意</div>
+          <div style="font-size:12px;color:var(--text-secondary);">演出质量 87.5% 非常满意；但灯光偏硬、座椅不舒适被反复提及</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">舞台、座椅、灯光、音响</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ 场地细节优化</div>
+          <div style="font-size:12px;color:var(--text-secondary);">调整灯光方案、考虑增加座椅垫选项、扩充非酒精饮品品类</div>
+        </td>
+      </tr>
+      <!-- ROW 5 -->
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">演出后</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Post-show</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">离场；可能在吧台继续聊天；回家后回味体验</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#fdf4e7;color:#c47a2a;margin-bottom:0.4rem;">连接感待加强</div>
+          <div style="font-size:12px;color:var(--text-secondary);">与艺人的情感连接感评分低于整体体验——离场后缺少「还想回来」的钩子</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">演后交流、邮件跟进</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ 演后互动环节（新增）</div>
+          <div style="font-size:12px;color:var(--text-secondary);">固定安排艺术家与观众的非正式交流时间，介绍 ACM 使命，让观众带着「归属感」离开</div>
+        </td>
+      </tr>
+      <!-- ROW 6 -->
+      <tr>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">留存</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Retention</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">决定是否再次到访；是否推荐给朋友；是否成为会员或捐赠者</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#e8f5ee;color:#2a7a4a;margin-bottom:0.4rem;">意愿强</div>
+          <div style="font-size:12px;color:var(--text-secondary);">94% 愿意再访；但缺乏机制让这个意愿真正转化为行动</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">邮件通讯、社媒、口碑</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ 三档会员体系（新增）</div>
+          <div style="font-size:12px;color:var(--text-secondary);">用灵活购票权益而非折扣留住用户；以会员为跳板，打通「观众 → 会员 → 捐赠者」转化链路</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- OUTCOME -->
+<section class="section">
+  <p class="section-label">策略输出</p>
+  <h2>三个举措，<em>一个目标：社群感。</em></h2>
+  <p>基于用户研究的核心发现，我们推出了三项落地策略。它们指向同一个方向：让观众不只是来看一场演出，而是真正成为这个社群的一部分。</p>
+
+  <div class="context-grid">
+    <div class="context-card">
+      <span class="cc-label">举措 01</span>
+      <div class="cc-title">三档会员体系</div>
+      <p>数据显示用户更看重灵活购票权益而非折扣。我们设计了三档会员方案，核心权益围绕「最后一分钟购票」「灵活取消」等实际需求展开，而非简单打折。作为非营利机构，会员体系也是将观众逐步转化为捐赠者的关键路径。</p>
+    </div>
+    <div class="context-card">
+      <span class="cc-label">举措 02</span>
+      <div class="cc-title">演出前后互动环节</div>
+      <p>在每场演出前后增设固定的互动时间，由负责人和工作人员主动与观众交流——介绍场地与机构背景、认识当场艺术家、分享 ACM 的使命。用数据说话：问卷显示艺人连接感评分低于整体体验，这正是我们要弥补的缺口。</p>
+    </div>
+    <div class="context-card" style="grid-column:1/-1;">
+      <span class="cc-label">举措 03</span>
+      <div class="cc-title">进驻 Bluesky，补上渠道盲区</div>
+      <p>调研发现我们的核心用户群体在 Bluesky 上的活跃度远高于预期——这是一个偏成熟、有文化消费习惯的用户聚集平台，与 The CheckOut 的受众高度重合。而此前品牌在该平台完全没有存在感。基于这一数据洞察，我们在 Bluesky 上建立了官方账号并纳入常规内容运营，用最小成本填补了这个曝光缺口。</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:1.5rem;">
+    <p class="callout-label">落地结果</p>
+    <p>三项策略落地后，通过定量数据验证，用户复购率提升 30%+。互动环节让观众带着归属感离场，Bluesky 拓宽了品牌触达范围——每一个决策背后，都有具体的数据支撑。</p>
+  </div>
+</section>
+
+<!-- TAKEAWAY -->
+<section class="takeaway-section">
+  <div class="takeaway-inner">
+    <p class="section-label">总结</p>
+    <h2>数据不是终点，<em>是起点。</em></h2>
+    <p>这个项目让我理解了一件事：用户研究的价值不在于收集数据，而在于从数据里找到真正可以行动的方向。</p>
+    <p>我们发现留存不靠折扣、发现购票体验是最大摩擦、发现艺人连接感有提升空间——每一个发现背后，都有一个具体的产品决策。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-back"><a href="index.html">← 返回主页</a></div>
+  <div class="footer-name">何昱颖</div>
+</footer>
+
+</body>
+</html>
