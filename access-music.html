@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACM 音乐学校 — 增长运营案例 | 何昱颖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --text: #141820;
+    --text-secondary: #525c6b;
+    --text-hint: #a0aab8;
+    --accent: #1a4fd6;
+    --accent-light: #eaf0fd;
+    --accent2: #0e9e6e;
+    --accent2-light: #e6f7f2;
+    --border: #e0e5ee;
+    --border-hover: #bcc5d8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .nav-back {
+    font-size: 13px;
+    color: var(--text-hint);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  .nav-right {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-hint);
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 3rem 4rem;
+  }
+
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+
+  .hero-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .tag-green { background: var(--accent2-light); color: var(--accent2); }
+  .tag-gray { border: 1px solid var(--border); color: var(--text-hint); }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 620px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .hero-metric {
+    padding: 1.5rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .hero-metric:last-child { border-right: none; }
+
+  .hm-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--text);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .hm-label {
+    font-size: 11px;
+    color: var(--text-hint);
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
+
+  /* LAYOUT */
+  .section { max-width: 900px; margin: 0 auto; padding: 4rem 3rem; }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  h2 em { font-style: italic; color: var(--accent); }
+
+  p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* PHASE HEADER */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .phase-badge {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .phase-badge-blue { background: var(--accent-light); color: var(--accent); }
+  .phase-badge-green { background: var(--accent2-light); color: var(--accent2); }
+
+  .phase-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* PROBLEM/SOLUTION GRID */
+  .ps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .ps-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .ps-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-hint);
+    margin-bottom: 0.8rem;
+    display: block;
+    font-weight: 400;
+  }
+
+  .ps-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .ps-card p { margin: 0; font-size: 13px; }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 2px solid var(--accent);
+    padding: 1.2rem 1.5rem;
+    background: var(--accent-light);
+    margin: 2rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout-green {
+    border-left-color: var(--accent2);
+    background: var(--accent2-light);
+  }
+  .callout-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+  .callout-green .callout-label { color: var(--accent2); }
+  .callout p { margin: 0; font-size: 13px; color: var(--text-secondary); }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--border-hover);
+    line-height: 1;
+  }
+
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .step p { margin: 0; font-size: 13px; }
+
+  /* FUNNEL */
+  .funnel {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .funnel-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 100px;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .funnel-label { font-size: 12px; color: var(--text-secondary); text-align: right; }
+
+  .funnel-bar-bg {
+    height: 10px;
+    background: var(--bg);
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .funnel-fill {
+    height: 100%;
+    border-radius: 5px;
+    background: var(--accent);
+  }
+
+  .funnel-val { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+
+  /* TOOL CHIPS */
+  .tool-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .chip {
+    font-size: 11px;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-secondary);
+  }
+
+  .chip-blue { background: var(--accent-light); color: var(--accent); border-color: var(--accent-light); }
+  .chip-green { background: var(--accent2-light); color: var(--accent2); border-color: var(--accent2-light); }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 2rem 0;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .flow-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    text-align: center;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  .flow-step-icon {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--accent2);
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 400;
+  }
+
+  .flow-step-name {
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+
+  .flow-step-tool {
+    font-size: 10px;
+    color: var(--text-hint);
+  }
+
+  .flow-arrow {
+    font-size: 18px;
+    color: var(--border-hover);
+    padding: 0 0.3rem;
+    flex-shrink: 0;
+  }
+
+  /* RESULT CARDS */
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .result-card.highlight {
+    background: var(--accent-light);
+    border-color: var(--accent);
+  }
+
+  .result-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--text);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .result-card.highlight .result-num { color: var(--accent); }
+
+  .result-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* TAKEAWAY */
+  .takeaway-section {
+    background: var(--accent);
+    padding: 5rem 3rem;
+    text-align: center;
+  }
+
+  .takeaway-inner { max-width: 700px; margin: 0 auto; }
+
+  .takeaway-section .section-label { color: rgba(255,255,255,0.5); }
+  .takeaway-section h2 { color: #fff; margin-bottom: 1.5rem; }
+  .takeaway-section h2 em { color: rgba(255,255,255,0.6); }
+  .takeaway-section p { color: rgba(255,255,255,0.75); font-size: 15px; max-width: 580px; margin: 0 auto 1rem; }
+
+  footer {
+    background: var(--bg);
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-back a {
+    font-size: 13px;
+    color: var(--text-hint);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-back a:hover { color: var(--accent); }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--text-hint);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tags   { animation: fadeUp 0.5s 0.0s ease both; }
+  .hero h1     { animation: fadeUp 0.5s 0.1s ease both; }
+  .hero-sub    { animation: fadeUp 0.5s 0.2s ease both; }
+  .hero-metrics{ animation: fadeUp 0.5s 0.3s ease both; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .section { padding: 3rem 1.5rem; }
+    .hero-metrics { grid-template-columns: repeat(2, 1fr); }
+    .ps-grid { grid-template-columns: 1fr; }
+    .result-grid { grid-template-columns: 1fr; }
+    .funnel-row { grid-template-columns: 100px 1fr 70px; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+    .takeaway-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="index.html">← 返回主页</a>
+  <span class="nav-right">ACM 音乐学校 — 案例研究</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="tag tag-blue">增长运营</span>
+      <span class="tag tag-blue">SEO / 投流</span>
+      <span class="tag tag-green">AI 自动化</span>
+      <span class="tag tag-gray">用户转化</span>
+    </div>
+    <h1>从流量到生源，<em>再到自动化。</em></h1>
+    <p class="hero-sub">Access Contemporary Music 旗下音乐学校新站点面临零客流、低转化、人手不足三重困境。我通过 SEO 优化、转化链路重设计，以及搭建 AI 自动化工作流，将月均报名从 1–3 个提升至 20–30 个，并节省约 80% 的人员跟进成本。</p>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <span class="hm-num">10×</span>
+        <span class="hm-label">月均报名增长<br>1–3 → 20–30</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">500×</span>
+        <span class="hm-label">官网曝光提升<br>SEO + 投流</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">80%</span>
+        <span class="hm-label">人员跟进成本节省<br>AI 自动化工作流</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">3套</span>
+        <span class="hm-label">Google 投流计划<br>搭建与持续维护</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTEXT -->
+<section class="section">
+  <p class="section-label">背景与挑战</p>
+  <h2>一个新网站，<em>三个问题。</em></h2>
+  <p>ACM 音乐学校是 Access Contemporary Music 旗下的连锁音乐学校品牌，提供一对一或小组形式的乐器课程。新网站上线后，面临三个相互叠加的困境。</p>
+
+  <div class="ps-grid">
+    <div class="ps-card">
+      <span class="ps-label">问题 01</span>
+      <div class="ps-title">没有客流</div>
+      <p>新网站没有任何 SEO 基础，也没有投流，月点击量仅 3–4 次。潜在学员根本找不到这个品牌。</p>
+    </div>
+    <div class="ps-card">
+      <span class="ps-label">问题 02</span>
+      <div class="ps-label" style="margin-top:0.5rem;color:var(--text-secondary);font-size:13px;letter-spacing:0;">转化路径缺失</div>
+      <div class="ps-title">来了也不报名</div>
+      <p>网站信息充分，但唯一的行动入口是「直接购买课程」——缺少与真人沟通的过渡步骤，导致大量潜在用户流失。</p>
+    </div>
+    <div class="ps-card">
+      <span class="ps-label">问题 03</span>
+      <div class="ps-title">内部分工不清</div>
+      <p>组织内部对「如何提升招生」没有明确分工，增长方向模糊，缺乏数据驱动的决策机制。</p>
+    </div>
+    <div class="ps-card" style="background:var(--accent-light);border-color:var(--accent);">
+      <span class="ps-label" style="color:var(--accent);">后续新问题 04</span>
+      <div class="ps-title">报名多了，人手跟不上</div>
+      <p>流量和报名提升后，新的瓶颈出现了：公司人手不足，无法做到及时沟通和回访，新生流失率高。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PHASE 1 -->
+<section class="section">
+  <div class="phase-header">
+    <span class="phase-badge phase-badge-blue">阶段一</span>
+    <div class="phase-line"></div>
+    <span style="font-size:11px;color:var(--text-hint);white-space:nowrap;">流量 + 转化</span>
+  </div>
+
+  <h2>先把人<em>带进来，</em>再让人留下来。</h2>
+  <p>我把问题拆成两步：第一步解决「找不到我们」，第二步解决「找到了但不行动」。</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">SEO 优化 + 谷歌投流</div>
+        <p>针对北美目标市场，系统优化网站关键词，完善 10+ 版页面标题和 50+ 张图片的关键词标注，搭建并维护 3 套 Google Ads 投流计划。结果：月点击从 3–4 次增至 2000+ 次，曝光提升超 500 倍，周点击稳定在 400–500 次。</p>
+        <div class="tool-chips">
+          <span class="chip chip-blue">Google Ads</span>
+          <span class="chip chip-blue">Google Search Console</span>
+          <span class="chip chip-blue">Google Analytics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">竞品调研，找出转化卡点</div>
+        <p>全流程体验调研 20+ 家北美竞品音乐学校，发现关键洞察：用户在「了解课程」和「购买课程」之间，需要一个「和真人沟通」的中间步骤。我们的网站直接跳过了这一步，导致即使有流量也留不住。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">重设转化链路</div>
+        <p>重新设计报名入口和相关页面：在网站右上角增加专属报名按钮、把弦类乐器页面合并精简、优化 3 个高潜力课程页面，搭建「了解课程 → 表单报名 → 真人沟通」的完整转化路径。每周用 Google Analytics 复盘，及时迭代。</p>
+        <div class="tool-chips">
+          <span class="chip">竞品分析</span>
+          <span class="chip chip-blue">Google Analytics</span>
+          <span class="chip">页面重设计</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUNNEL -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.5rem 2rem;margin-top:2rem;">
+    <div style="font-size:10px;letter-spacing:0.18em;color:var(--text-hint);margin-bottom:1.2rem;">转化链路优化前 → 后</div>
+    <div class="funnel">
+      <div class="funnel-row">
+        <div class="funnel-label">官网曝光</div>
+        <div class="funnel-bar-bg"><div class="funnel-fill" style="width:100%"></div></div>
+        <div class="funnel-val">500× ↑</div>
+      </div>
+      <div class="funnel-row" style="margin-top:0.6rem;">
+        <div class="funnel-label">报名表单提交</div>
+        <div class="funnel-bar-bg"><div class="funnel-fill" style="width:65%"></div></div>
+        <div class="funnel-val">新增入口</div>
+      </div>
+      <div class="funnel-row" style="margin-top:0.6rem;">
+        <div class="funnel-label">真人沟通转化</div>
+        <div class="funnel-bar-bg"><div class="funnel-fill" style="width:40%;background:var(--accent2)"></div></div>
+        <div class="funnel-val">80% ↑</div>
+      </div>
+      <div class="funnel-row" style="margin-top:0.6rem;">
+        <div class="funnel-label">月均正式报名</div>
+        <div class="funnel-bar-bg"><div class="funnel-fill" style="width:25%;background:var(--accent2)"></div></div>
+        <div class="funnel-val">1–3 → 20–30</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PHASE 2 -->
+<section class="section" style="background:var(--surface);max-width:100%;padding:0;">
+  <div style="max-width:900px;margin:0 auto;padding:4rem 3rem;">
+    <div class="phase-header">
+      <span class="phase-badge phase-badge-green">阶段二</span>
+      <div class="phase-line"></div>
+      <span style="font-size:11px;color:var(--text-hint);white-space:nowrap;">AI 自动化</span>
+    </div>
+
+    <h2>报名多了，<em>人手跟不上——</em>用 AI 补上这个缺口。</h2>
+    <p>流量和报名提升之后，新的瓶颈出现了：公司人手有限，无法做到对每一个潜在学员即时跟进，导致大量新生在等待阶段流失。我用 Zapier 搭建了一套全自动的招生跟进工作流。</p>
+
+    <div class="callout callout-green">
+      <p class="callout-label">核心思路</p>
+      <p>用自动化替代人工处理重复性流程——录入信息、匹配教师、约定时间、双方通知——让工作人员只需要专注在真正需要人判断的环节。</p>
+    </div>
+
+    <!-- FLOW -->
+    <div style="font-size:10px;letter-spacing:0.18em;color:var(--text-hint);margin:2rem 0 1rem;">自动化工作流全流程</div>
+    <div class="flow">
+      <div class="flow-step">
+        <span class="flow-step-icon">触发</span>
+        <div class="flow-step-name">学员填写报名表单</div>
+        <div class="flow-step-tool">Gravity Forms</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-step-icon">录入</span>
+        <div class="flow-step-name">自动写入生源数据库</div>
+        <div class="flow-step-tool">Google Sheets</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-step-icon">匹配</span>
+        <div class="flow-step-name">了解需求 + 匹配教师</div>
+        <div class="flow-step-tool">Zapier 逻辑</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-step-icon">预约</span>
+        <div class="flow-step-name">根据教师日历约定沟通时间</div>
+        <div class="flow-step-tool">Calendly</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-step-icon">通知</span>
+        <div class="flow-step-name">自动通知教师 + 学员双方</div>
+        <div class="flow-step-tool">GrabHub</div>
+      </div>
+    </div>
+
+    <div class="tool-chips" style="margin-bottom:2rem;">
+      <span class="chip chip-green">Zapier</span>
+      <span class="chip chip-green">Google Sheets</span>
+      <span class="chip chip-green">Calendly</span>
+      <span class="chip chip-green">Gravity Forms</span>
+      <span class="chip chip-green">GrabHub</span>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-card highlight">
+        <span class="result-num">80%</span>
+        <div class="result-label">人员跟进成本节省<br>自动化替代重复流程</div>
+      </div>
+      <div class="result-card">
+        <span class="result-num">即时</span>
+        <div class="result-label">回应速度<br>从人工等待到自动触发</div>
+      </div>
+      <div class="result-card">
+        <span class="result-num">0</span>
+        <div class="result-label">人工录入环节<br>全流程自动化覆盖</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- REFLECTION -->
+<section class="section">
+  <p class="section-label">复盘</p>
+  <h2>每周看数据，<em>每周做调整。</em></h2>
+  <p>这个项目让我养成了一个习惯：增长不是「上线就完成了」，而是一个持续迭代的过程。</p>
+  <p>每周用 Google Analytics 复盘数据，发现什么不对就改——把弦类乐器页面合并是因为数据显示分散页面点击率低；在右上角加专属报名入口是因为热力图显示用户在找但找不到；AI 工作流是因为数据显示报名后的流失发生在等待回复阶段。</p>
+
+  <div class="callout">
+    <p class="callout-label">关键认知</p>
+    <p>增长运营最难的不是找到第一个解法，而是在解决一个问题之后，迅速发现下一个瓶颈在哪里。流量问题解决了，转化问题出现了；转化问题解决了，人手问题出现了。每一次瓶颈转移，都是一次重新分析、重新设计的机会。</p>
+  </div>
+</section>
+
+<!-- TAKEAWAY -->
+<section class="takeaway-section">
+  <div class="takeaway-inner">
+    <p class="section-label">总结</p>
+    <h2>流量只是起点，<em>闭环才是终点。</em></h2>
+    <p>从 SEO 到投流，从转化链路重设计到 AI 自动化——这个项目完整走过了一个增长运营的全链路。</p>
+    <p>每一步都有数据支撑，每一个决策都能说清楚为什么做、做了之后发生了什么。这是我对「数据驱动增长」最直接的实践。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-back"><a href="index.html">← 返回主页</a></div>
+  <div class="footer-name">何昱颖</div>
+</footer>
+
+</body>
+</html>
