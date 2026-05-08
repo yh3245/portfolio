@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The CheckOut — User Research Case Study | He Yuying</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf7f4;
+    --surface: #ffffff;
+    --text: #1e1612;
+    --text-secondary: #6b5c52;
+    --text-hint: #b8a89e;
+    --accent: #b83224;
+    --accent-light: #fbecea;
+    --accent2: #c47a2a;
+    --accent2-light: #fdf4e7;
+    --border: #e8ddd8;
+    --border-hover: #c9b8b0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .nav-back {
+    font-size: 13px;
+    color: var(--text-hint);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  .nav-right {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-hint);
+  }
+
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 3rem 4rem;
+  }
+
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+
+  .hero-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+
+  .tag-green { background: var(--accent-light); color: var(--accent); }
+  .tag-gray { border: 1px solid var(--border); color: var(--text-hint); }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .hero-metric {
+    padding: 1.5rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .hero-metric:last-child { border-right: none; }
+
+  .hm-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--text);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .hm-label {
+    font-size: 11px;
+    color: var(--text-hint);
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
+
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 3rem;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  h2 em { font-style: italic; color: var(--accent); }
+
+  p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  .context-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .context-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .cc-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-hint);
+    margin-bottom: 0.8rem;
+    display: block;
+    font-weight: 400;
+  }
+
+  .cc-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .context-card p { margin: 0; font-size: 13px; }
+
+  .steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--border-hover);
+    line-height: 1;
+  }
+
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .step p { margin: 0; font-size: 13px; }
+
+  .callout {
+    border-left: 2px solid var(--accent);
+    padding: 1.2rem 1.5rem;
+    background: var(--accent-light);
+    margin: 2rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .callout-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+
+  .callout p { margin: 0; font-size: 13px; color: var(--text-secondary); }
+
+  .callout-warn {
+    border-left-color: var(--accent2);
+    background: var(--accent2-light);
+  }
+  .callout-warn .callout-label { color: var(--accent2); }
+
+  .data-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sat-grid { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
+
+  .sat-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 60px;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .sat-label { font-size: 12px; color: var(--text-secondary); text-align: right; }
+
+  .sat-bar-bg {
+    height: 8px;
+    background: var(--bg);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .sat-bar-fill { height: 100%; border-radius: 4px; background: var(--accent); transition: width 1s ease; }
+  .sat-pct { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+
+  .genre-grid { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
+
+  .genre-pill {
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .genre-pill.top { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 500; }
+  .genre-pill.second { background: var(--accent-light); color: var(--accent); border-color: var(--accent-light); }
+  .genre-pct { font-size: 10px; opacity: 0.75; }
+
+  .findings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .finding-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .finding-icon { font-size: 1.2rem; margin-bottom: 0.8rem; display: block; }
+
+  .finding-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .finding-card p { margin: 0; font-size: 13px; }
+
+  .retention-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .ret-card { border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; text-align: center; }
+  .ret-card.winner { background: var(--accent-light); border-color: var(--accent); }
+
+  .ret-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .ret-card.winner .ret-num { color: var(--accent); }
+  .ret-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 0.8rem; display: block; }
+  .ret-card p { font-size: 12px; margin: 0; }
+
+  .winner-badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    margin-bottom: 0.8rem;
+  }
+
+  .quote-block {
+    border-left: 3px solid var(--border);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--surface);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .quote-text { font-size: 13px; color: var(--text-secondary); font-style: italic; line-height: 1.7; margin-bottom: 0.3rem; }
+  .quote-attr { font-size: 11px; color: var(--text-hint); }
+
+  .takeaway-section { background: var(--accent); padding: 5rem 3rem; text-align: center; }
+  .takeaway-inner { max-width: 700px; margin: 0 auto; }
+  .takeaway-section .section-label { color: rgba(255,255,255,0.5); margin-bottom: 1.2rem; }
+  .takeaway-section h2 { color: #fff; margin-bottom: 1.5rem; }
+  .takeaway-section h2 em { color: rgba(255,255,255,0.65); }
+  .takeaway-section p { color: rgba(255,255,255,0.75); font-size: 15px; max-width: 580px; margin: 0 auto 1rem; }
+
+  footer {
+    background: var(--bg);
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    max-width: 100%;
+  }
+
+  .footer-back a { font-size: 13px; color: var(--text-hint); text-decoration: none; transition: color 0.2s; }
+  .footer-back a:hover { color: var(--accent); }
+  .footer-name { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--text-hint); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tags  { animation: fadeUp 0.5s 0.0s ease both; }
+  .hero h1    { animation: fadeUp 0.5s 0.1s ease both; }
+  .hero-sub   { animation: fadeUp 0.5s 0.2s ease both; }
+  .hero-metrics { animation: fadeUp 0.5s 0.3s ease both; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .section { padding: 3rem 1.5rem; }
+    .hero-metrics { grid-template-columns: repeat(2, 1fr); }
+    .context-grid { grid-template-columns: 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .retention-compare { grid-template-columns: 1fr; }
+    .sat-row { grid-template-columns: 120px 1fr 50px; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+    .takeaway-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="index.html">← Back to Home</a>
+  <span class="nav-right">THE CHECKOUT — CASE STUDY</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="tag tag-green">User Research</span>
+      <span class="tag tag-gray">Product Strategy</span>
+      <span class="tag tag-gray">Membership System</span>
+      <span class="tag tag-gray">Data Analysis</span>
+    </div>
+    <h1>Listen to the audience <em>before building.</em></h1>
+    <p class="hero-sub">The CheckOut is a new live music venue in Chicago. Using a customer journey map, in-depth interviews, and 280+ surveys, we identified the root causes of low foot traffic and poor retention, then designed a community-first retention system.</p>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <span class="hm-num">280+</span>
+        <span class="hm-label">Valid Survey Responses</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">15</span>
+        <span class="hm-label">User Touchpoints Mapped</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">94%</span>
+        <span class="hm-label">Respondents Likely to Return</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hm-num">30%+</span>
+        <span class="hm-label">Repurchase Rate Lift</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BACKGROUND -->
+<section class="section">
+  <p class="section-label">BACKGROUND</p>
+  <h2>One new venue, <em>two core problems.</em></h2>
+  <p>The CheckOut is a new-concept live music bar in Chicago, offering chamber music, jazz, contemporary music, and more. As a brand just getting started, they faced two core challenges: how to attract new audiences, and how to bring them back.</p>
+  <p>Our task: use real user data to identify the problems and deliver actionable product strategy recommendations.</p>
+
+  <div class="context-grid">
+    <div class="context-card">
+      <span class="cc-label">CHALLENGE 01</span>
+      <div class="cc-title">Low Foot Traffic</div>
+      <p>The venue had low brand awareness, no clear acquisition channels, and no established path to get target users through the door for the first time.</p>
+    </div>
+    <div class="context-card">
+      <span class="cc-label">CHALLENGE 02</span>
+      <div class="cc-title">Low Retention</div>
+      <p>Even satisfied attendees had no strong reason to return. How do you turn occasional visitors into loyal regulars?</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROCESS -->
+<section class="section">
+  <p class="section-label">RESEARCH METHODOLOGY</p>
+  <h2>From interviews to data, <em>finding the answers step by step.</em></h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">Customer Journey Map</div>
+        <p>Through 30+ in-depth in-person interviews, we mapped the full user journey from "first hearing about the venue" to "heading home after the show," identifying 4 key phases and 15 touchpoints: brand discovery, ticket purchase, live experience, and post-show sharing.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">Quantitative Survey</div>
+        <p>To supplement the limited in-person sample, we designed an 18-question survey and distributed it to 500+ ticket-buyers via email. We collected 280+ valid responses covering overall satisfaction, venue experience, return intent, genre preferences, and retention drivers.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">Data Analysis & Insight Synthesis</div>
+        <p>We systematically analyzed the survey data to identify core pain points, retention drivers, and target user characteristics, producing 3+ research reports to inform product strategy decisions.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div>
+        <div class="step-title">Membership System Design</div>
+        <p>Based on our data insights, we designed a 3-tier membership system with differentiated benefits — exclusive show access, flexible ticketing — to convert one-time visitors into loyal supporters and create a pathway toward donations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DATA: SATISFACTION -->
+<section class="data-section">
+  <div class="section">
+    <p class="section-label">DATA INSIGHT 01</p>
+    <h2>Overall experience is <em>highly positive —</em> with one exception.</h2>
+    <p>Survey results show very high satisfaction with show quality, venue atmosphere, and sound. The one clear outlier: ticketing experience — being forced to download an app was the most frequently cited negative.</p>
+
+    <div class="sat-grid">
+      <div class="sat-row">
+        <div class="sat-label">Show Quality</div>
+        <div class="sat-bar-bg"><div class="sat-bar-fill" style="width:87.5%"></div></div>
+        <div class="sat-pct">87.5%</div>
+      </div>
+      <div class="sat-row">
+        <div class="sat-label">Sound</div>
+        <div class="sat-bar-bg"><div class="sat-bar-fill" style="width:71.9%"></div></div>
+        <div class="sat-pct">71.9%</div>
+      </div>
+      <div class="sat-row">
+        <div class="sat-label">Venue Atmosphere</div>
+        <div class="sat-bar-bg"><div class="sat-bar-fill" style="width:65.6%"></div></div>
+        <div class="sat-pct">65.6%</div>
+      </div>
+      <div class="sat-row">
+        <div class="sat-label">Ticketing Experience</div>
+        <div class="sat-bar-bg"><div class="sat-bar-fill" style="width:50%; background:#e09a5a;"></div></div>
+        <div class="sat-pct" style="color:#c0784a;">50%</div>
+      </div>
+    </div>
+    <p style="font-size:11px; color:var(--text-hint); margin-top:0.8rem;">* Bars show "Very Satisfied" percentage; ticketing satisfaction is notably lower than all other dimensions</p>
+
+    <div class="callout callout-warn" style="margin-top:2rem;">
+      <p class="callout-label">CORE PAIN POINT</p>
+      <p>Being forced to download a ticketing app was the most frequently mentioned negative experience across all responses, with multiple comments naming it directly. This is a low-cost, high-impact fix — addressing it requires no changes to the show itself, yet could significantly improve conversion.</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"I loved the venue and the performers. I just didn't love having to download an app to purchase the tickets."</p>
+      <p class="quote-attr">— Survey response, Jazz and Comedy show</p>
+    </div>
+    <div class="quote-block">
+      <p class="quote-text">"Was annoyed to download another tickets app, but understand the need."</p>
+      <p class="quote-attr">— Survey response, Mycelium New Music show</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DATA: GENRE -->
+<section class="section">
+  <p class="section-label">DATA INSIGHT 02</p>
+  <h2>Audiences are <em>content-driven,</em> with broad tastes.</h2>
+  <p>Chamber music is the most popular genre, with jazz close behind. But the most notable finding: 43.75% of respondents said they enjoy everything — meaning a diverse program is itself a retention strategy.</p>
+
+  <div class="genre-grid">
+    <div class="genre-pill top">Chamber Music <span class="genre-pct">53.1%</span></div>
+    <div class="genre-pill second">Jazz <span class="genre-pct">34.4%</span></div>
+    <div class="genre-pill second">Contemporary New Music <span class="genre-pct">28.1%</span></div>
+    <div class="genre-pill">Opera & Vocal <span class="genre-pct">15.6%</span></div>
+    <div class="genre-pill">Cabaret <span class="genre-pct">25%</span></div>
+    <div class="genre-pill">Film Score <span class="genre-pct">18.75%</span></div>
+    <div class="genre-pill top">Open to Everything <span class="genre-pct">43.75%</span></div>
+  </div>
+
+  <div class="callout" style="margin-top:2rem;">
+    <p class="callout-label">INSIGHT</p>
+    <p>Nearly half of attendees are open to all genres, which aligns with "curiosity / trying something new" being the second most common reason for visiting (40.6%). The CheckOut's diverse programming is itself a meaningful competitive advantage.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DATA: RETENTION -->
+<section class="data-section">
+  <div class="section">
+    <p class="section-label">DATA INSIGHT 03</p>
+    <h2>Retention is driven by <em>content, not discounts.</em></h2>
+    <p>When asked "what would most encourage you to return?", membership/season passes led with 59.4% — far ahead of bring-a-friend discounts (18.75%). This finding directly shaped our product strategy direction.</p>
+
+    <div class="retention-compare">
+      <div class="ret-card winner">
+        <span class="winner-badge">RECOMMENDED STRATEGY</span>
+        <span class="ret-num">59.4%</span>
+        <span class="ret-label">Membership / Season Pass</span>
+        <p>Users want stable, flexible access benefits — not one-time price reductions.</p>
+      </div>
+      <div class="ret-card">
+        <span class="ret-num">18.75%</span>
+        <span class="ret-label">Bring-a-Friend Discount</span>
+        <p>Discounts were far less appealing than expected, suggesting existing audiences are not price-sensitive.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:2rem;">
+      <p class="callout-label">KEY FINDING</p>
+      <p>94% of respondents said they were very likely or likely to return within 3 months (53.1% very likely, 40.6% likely). Return intent is strong — the question isn't whether they want to come back, but whether a mechanism exists to make that happen. That's exactly what the membership system is designed to solve.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FINDINGS -->
+<section class="section">
+  <p class="section-label">CORE FINDINGS</p>
+  <h2>Five <em>actionable insights.</em></h2>
+
+  <div class="findings-grid">
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">Ticketing is the Biggest Friction Point</div>
+      <p>Forced app download is the most frequently cited negative. Offering a simpler web-based ticketing path could significantly improve conversion without changing anything about the show itself.</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">Content Depth Drives Return Visits</div>
+      <p>People come back because they love the programming — not because of discounts. This means the quality and diversity of the lineup matters more than any marketing campaign.</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">Artist Connection Has Room to Grow</div>
+      <p>Overall experience ratings scored higher than "emotional connection with the artist." Adding post-show exchanges and artist introductions can strengthen what makes the venue truly distinctive.</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">Venue Details Still Need Polishing</div>
+      <p>Harsh lighting, uncomfortable seating, and limited non-alcoholic drink options came up repeatedly — pointing to concrete, addressable improvements.</p>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon" style="color:var(--accent);">✦</span>
+      <div class="finding-title">Target Audience Is Active on Bluesky</div>
+      <p>Research revealed that the core audience — culturally engaged, slightly older — is significantly more active on Bluesky than expected. The brand had zero presence there. Based on this finding, we launched an official Bluesky account and integrated it into regular content operations.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="max-width:1100px;">
+  <p class="section-label">CUSTOMER JOURNEY MAP</p>
+  <h2>From <em>passerby</em> to regular.</h2>
+  <p style="margin-bottom:2.5rem;">Based on 30+ in-person interviews and 280+ survey responses, we mapped the complete audience journey — where friction occurs, where connection is built, and what we did at each stage.</p>
+
+  <!-- PERSONAS -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2.5rem;">
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--accent);flex-shrink:0;">S</div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:0.95rem;color:var(--text);line-height:1.2;">Susan, 55</div>
+          <div style="font-size:10px;color:var(--text-hint);letter-spacing:0.08em;">Community Supporter</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.5rem;letter-spacing:0.06em;">PROFILE</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">Long-time Lakeview resident, learns about shows via email or word of mouth. Enjoys chamber music and vocal performances but open to variety. Views attending The CheckOut as a way to support the local arts community.</div>
+      <div style="border-top:1px solid var(--border);padding-top:0.8rem;">
+        <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.4rem;letter-spacing:0.06em;">CORE DRIVERS</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Supporting artists & venue · Familiar programming · Community belonging</div>
+        <div style="font-size:11px;color:var(--accent);font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">PAIN POINTS</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Forced app download is especially off-putting for her age group; seat comfort</div>
+        <div style="font-size:11px;color:var(--accent);font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">RETENTION KEY</div>
+        <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:var(--accent-light);color:var(--accent);">Membership / Season Pass</div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--accent2-light);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--accent2);flex-shrink:0;">M</div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:0.95rem;color:var(--text);line-height:1.2;">Marcus, 32</div>
+          <div style="font-size:10px;color:var(--text-hint);letter-spacing:0.08em;">Curious Explorer</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--accent2);font-weight:500;margin-bottom:0.5rem;letter-spacing:0.06em;">PROFILE</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">Brought by a friend or drawn in by the concept — "a former 7-Eleven turned music hall" was enough to make him curious. Broad taste, loves novelty, not a loyalist to any one genre.</div>
+      <div style="border-top:1px solid var(--border);padding-top:0.8rem;">
+        <div style="font-size:11px;color:var(--accent2);font-weight:500;margin-bottom:0.4rem;letter-spacing:0.06em;">CORE DRIVERS</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Curiosity / trying something new · Friend recommendation · Accessible pricing</div>
+        <div style="font-size:11px;color:var(--accent2);font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">PAIN POINTS</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Limited pre-show info; no strong hook to bring him back a second time</div>
+        <div style="font-size:11px;color:var(--accent2);font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">RETENTION KEY</div>
+        <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:var(--accent2-light);color:var(--accent2);">Pre-show Interaction · Artist Intro</div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:#eef0f8;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.2rem;color:#4a5aaa;flex-shrink:0;">R</div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:0.95rem;color:var(--text);line-height:1.2;">Rachel, 44</div>
+          <div style="font-size:10px;color:var(--text-hint);letter-spacing:0.08em;">Vertical Enthusiast</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#4a5aaa;font-weight:500;margin-bottom:0.5rem;letter-spacing:0.06em;">PROFILE</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">A seasoned listener with clear preferences — chamber or jazz. Comes specifically for a particular artist or program, holds high standards for performance quality, and actively follows The CheckOut's schedule.</div>
+      <div style="border-top:1px solid var(--border);padding-top:0.8rem;">
+        <div style="font-size:11px;color:#4a5aaa;font-weight:500;margin-bottom:0.4rem;letter-spacing:0.06em;">CORE DRIVERS</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Specific artist · Program quality · Intimacy (only 20 feet from performers)</div>
+        <div style="font-size:11px;color:#4a5aaa;font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">PAIN POINTS</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Sound balance issues (electronic elements too loud); occasional ambient noise</div>
+        <div style="font-size:11px;color:#4a5aaa;font-weight:500;margin:0.6rem 0 0.4rem;letter-spacing:0.06em;">RETENTION KEY</div>
+        <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#eef0f8;color:#4a5aaa;">Genre-specific Shows · Post-show Q&A</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JOURNEY TABLE -->
+  <div style="overflow-x:auto;">
+  <table style="width:100%;border-collapse:collapse;min-width:700px;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--text-hint);font-weight:400;width:14%;">STAGE</th>
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--text-hint);font-weight:400;width:20%;">USER BEHAVIOR</th>
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--text-hint);font-weight:400;width:20%;">EMOTION / PAIN</th>
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--text-hint);font-weight:400;width:18%;">TOUCHPOINTS</th>
+        <th style="text-align:left;padding:0.8rem 1rem;font-size:10px;letter-spacing:0.15em;color:var(--accent);font-weight:400;width:28%;">OUR RESPONSE / NEXT STEP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">Discovery</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Awareness</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Hears about The CheckOut via friend recommendation, walking past, or Google search</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#fdf4e7;color:#c47a2a;margin-bottom:0.4rem;">Curious</div>
+          <div style="font-size:12px;color:var(--text-secondary);">"A former 7-Eleven turned music hall?" — intriguing but uncertain</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Word of mouth, venue exterior, social media</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ Strengthen brand narrative</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Use the "former 7-Eleven" contrast as a memory anchor — it's the kind of detail that sticks</div>
+        </td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">Decision</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Consideration</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Checks the program, reviews ticket prices, decides whether to buy</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#fbecea;color:#b83224;margin-bottom:0.4rem;">⚠ Biggest Pain Point</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Forced app download — named directly in multiple survey responses, lowest satisfaction of any stage</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Website, DICE App, email newsletters</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ Simplify ticketing path</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Advocate for web-based ticket purchasing to reduce drop-off at the app barrier</div>
+        </td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">Pre-show</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Arrival</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Checks address, parking, dress code; arrives, finds a seat, orders a drink</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#fdf4e7;color:#c47a2a;margin-bottom:0.4rem;">Mild Anxiety</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Parking info unclear; first-timers unsure what to expect</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Confirmation email, venue entrance, bar</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ Pre-show interaction (NEW)</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Staff proactively welcomes guests and introduces the venue, its story, and the night's artist — turning "unfamiliar" into "welcomed"</div>
+        </td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">During Show</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Experience</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Watches the performance up close, shares the space with other attendees</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#e8f5ee;color:#2a7a4a;margin-bottom:0.4rem;">Highly Satisfied</div>
+          <div style="font-size:12px;color:var(--text-secondary);">87.5% very satisfied with show quality; but harsh lighting and uncomfortable seating came up repeatedly</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Stage, seating, lighting, sound</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ Venue detail improvements</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Adjust lighting scheme, consider seat cushion options, expand non-alcoholic drink selection</div>
+        </td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">Post-show</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Departure</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Leaves; may linger at the bar; reflects on the experience at home</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#fdf4e7;color:#c47a2a;margin-bottom:0.4rem;">Connection Gap</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Artist connection score is lower than overall experience — no clear hook to bring them back</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Post-show mingling, follow-up email</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ Post-show interaction (NEW)</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Structured informal time for artists and audience to connect; share ACM's mission; let attendees leave with a sense of belonging</div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-family:'DM Serif Display',serif;font-size:0.85rem;color:var(--text);">Retention</div>
+          <div style="font-size:10px;color:var(--text-hint);margin-top:0.2rem;">Loyalty</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Decides whether to return, recommend to friends, or become a member or donor</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="display:inline-block;font-size:11px;padding:0.2rem 0.6rem;border-radius:2px;background:#e8f5ee;color:#2a7a4a;margin-bottom:0.4rem;">High Intent</div>
+          <div style="font-size:12px;color:var(--text-secondary);">94% willing to return — but no mechanism to convert that intent into action</div>
+        </td>
+        <td style="padding:1rem;vertical-align:top;font-size:12px;color:var(--text-secondary);">Email newsletter, social media, word of mouth</td>
+        <td style="padding:1rem;vertical-align:top;">
+          <div style="font-size:11px;color:var(--accent);font-weight:500;margin-bottom:0.3rem;">↗ 3-tier membership system (NEW)</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Retain users through flexible access benefits, not discounts; use membership as the bridge from audience → member → donor</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- OUTCOME -->
+<section class="section">
+  <p class="section-label">STRATEGY OUTPUT</p>
+  <h2>Three initiatives, <em>one goal: community.</em></h2>
+  <p>Based on our research findings, we launched three initiatives — all pointing in the same direction: making attendees feel like part of a community, not just audience members at a show.</p>
+
+  <div class="context-grid">
+    <div class="context-card">
+      <span class="cc-label">INITIATIVE 01</span>
+      <div class="cc-title">3-Tier Membership System</div>
+      <p>Data showed users value flexible access far more than discounts. We designed three membership tiers centered on "last-minute tickets" and "flexible cancellation" — real needs, not just perks. As a nonprofit, the membership system also serves as the key pathway from audience member to donor.</p>
+    </div>
+    <div class="context-card">
+      <span class="cc-label">INITIATIVE 02</span>
+      <div class="cc-title">Pre & Post-Show Interaction Program</div>
+      <p>We introduced a fixed interaction window before and after every show — staff and organizers proactively engage with attendees, introduce the venue, the artist, and ACM's mission. The data was clear: artist connection scores lagged overall experience ratings. This was the gap we needed to close.</p>
+    </div>
+    <div class="context-card" style="grid-column:1/-1;">
+      <span class="cc-label">INITIATIVE 03</span>
+      <div class="cc-title">Launching on Bluesky — Closing a Channel Gap</div>
+      <p>Research revealed that our core audience — culturally engaged, slightly older — was significantly more active on Bluesky than expected, making it a natural fit for The CheckOut's demographic. Yet the brand had zero presence there. Based on this data insight, we created an official Bluesky account and incorporated it into regular content operations, filling a visibility gap at minimal cost.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:1.5rem;">
+    <p class="callout-label">RESULTS</p>
+    <p>After implementing all three initiatives, quantitative data confirmed a 30%+ increase in repurchase rate. The interaction program helped attendees leave with a sense of belonging, and Bluesky expanded brand reach — every decision was grounded in specific data.</p>
+  </div>
+</section>
+
+<!-- TAKEAWAY -->
+<section class="takeaway-section">
+  <div class="takeaway-inner">
+    <p class="section-label">TAKEAWAY</p>
+    <h2>Data isn't the destination — <em>it's the starting point.</em></h2>
+    <p>This project taught me something fundamental: the value of user research isn't in collecting data — it's in finding directions that are actually actionable.</p>
+    <p>We learned that retention doesn't come from discounts, that ticketing was the biggest friction point, that artist connection had room to grow — and behind each finding was a concrete product decision.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-back"><a href="index.html">← Back to Home</a></div>
+  <div class="footer-name">He Yuying</div>
+</footer>
+
+</body>
+</html>
